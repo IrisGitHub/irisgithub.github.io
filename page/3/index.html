@@ -160,64 +160,32 @@
           <div id="js-content" class="content-ll">
             
   
-    <article id="post-20200820" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-20200711" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2020/08/20/20200820/">《改变未来的九大算法》 笔记</a>
+      <a class="article-title" href="/2020/07/11/20200711/">不同平台差异兼容注意点</a>
     </h1>
   
 
         
-        <a href="/2020/08/20/20200820/" class="archive-article-date">
-  	<time datetime="2020-08-20T15:36:15.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-08-20</time>
+        <a href="/2020/07/11/20200711/" class="archive-article-date">
+  	<time datetime="2020-07-11T12:16:15.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-07-11</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p><strong>《改变未来的九大算法》 笔记</strong></p>
-<p>伟大算饭筛选条件：计算机用户每天用到、能处理具体现实的问题、算法主要和计算机科学理论相关</p>
-<p><strong>搜索引擎：</strong></p>
-<p>搜索的两个阶段：匹配和排名</p>
-<p>索引、短语查询</p>
-<p>词位置把戏 word location trick</p>
-<p>元词把戏 metawork trick</p>
-<p><strong>谷歌搜索算法：PageRank 算法</strong></p>
-<p>技术基础：超链接把戏 –一个网页的链入连接数多则有高排名</p>
-<p>权重把戏 the authority trick —与来自低权重的链入链接相比，来自高权重的链入链接更能证明网页排名</p>
-<p>权重值和超链接 可能导致循环问题 解决办法：随机访问者把戏 the random surfer trick</p>
-<p>web spam 网络垃圾</p>
-<p>基于链接的排名算法 link-based ranking algorithms</p>
-<p><strong>共享密钥</strong></p>
-<p>迪菲-赫尔曼密钥交换 diffie-hellman key exchange 颜料混合把戏 paint-mixing trick</p>
-<p>需要单向操作 one-way action</p>
-<p>混合操作 —&gt;离散指数 discrete exponentiation</p>
-<p>分离操作 —&gt;discrete logarithm</p>
-<p>钟算 clock arithmetic + 幂指数 power motation</p>
-<p><strong>纠错码</strong></p>
-<p>计算机三项基本操作：执行计算、存储数据、操作数据</p>
-<p>代码字</p>
-<p>冗余把戏 –Hamming code</p>
-<p>信息理论学 information theory – 香农的《通信的数学理论》The Mathematical Theory of Communication</p>
-<p>里德-所罗门代码—基于有限域代数数学分支，结合阶梯校验和二维定点把戏</p>
-<p><strong>图形识别</strong></p>
-<p>邻分类器 nearest-neighbor classifier 最邻近把戏</p>
-<p>决策树 decision tree</p>
-<p>人工神经网络 artificial neural network – 每个链接都必须有权重值，每个神经元都必须有个合适的值作为阈值</p>
-<p>图灵–1950《计算机器与智能》</p>
-<p><strong>数据压缩</strong></p>
-<p>无损压缩 —–&gt;更短符号把戏</p>
-<p>有损压缩 ——&gt;抛弃把戏</p>
-<p><strong>数据库</strong></p>
-<p>预写日志记录 write-ahesd logging</p>
-<p>两阶段提交 two-phrase commit</p>
-<p>关系数据库 relational database</p>
-<p><strong>数字签名</strong></p>
+        <p>对于不同平台差异兼容注意点</p>
+<p>1、PC 考虑的是浏览器的兼容性，而移动端开发考虑的更多的是手机兼容性，因为目前不管是 android 手机还是 ios 手机，一般浏览器使用的都是 webkit 内核，所以说做移动端开发，更多考虑的应该是手机分辨率的适配，和不同操作系统的略微差异化。</p>
+<p>2、在部分事件的处理上，移动端多出来的事件是触屏事件，而缺少的是 hover 事件。 另外包括移动端弹出的手机键盘的处理，这样的问题在 PC 端都是遇不到的。</p>
+<p>3、在布局上，移动端开发一般是要做到布局自适应的，使用 rem 布局。</p>
+<p>4、在动画处理上，PC 端由于要考虑 IE 的兼容性，所以通常使用 JS 做动画的通用性会更好一些，但是 CSS3 做了很大的牺牲， 而在手机端，如果要做一些动画、特效等，第一选择肯定是 CSS3， 既简单、效率又高。</p>
+<p>5、微信的一些接口组好能去实现一遍，熟悉一下肯定是有好处的，比如通过微信分享文章，title、description、icon 等图标的配置，这些还是要会的。百度地图的一些 API 接口，也得去实现一下，这些对于移动端来说，LBS 是一个非常重要的特性，所以地图这块肯定是要了解的，在加上百度地图这块已经是一个比较成熟的平台了，学起来比较容易。</p>
 
       
 
@@ -231,7 +199,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">program</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Program</a>
         		</li>
       		
 		</ul>
@@ -243,7 +211,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="/categories/others//" class="article-tag-list-link color2">Others</a>
+        			<a href="/categories/Others//" class="article-tag-list-link color2">Others</a>
         		</li>
       		
 		</ul>
@@ -252,7 +220,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2020/08/20/20200820/">展开全文 >></a>
+          <a class="article-more-a" href="/2020/07/11/20200711/">展开全文 >></a>
         </p>
       
 
@@ -461,7 +429,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">program</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Program</a>
         		</li>
       		
 		</ul>
@@ -473,7 +441,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="/categories/others//" class="article-tag-list-link color2">Others</a>
+        			<a href="/categories/Others//" class="article-tag-list-link color2">Others</a>
         		</li>
       		
 		</ul>
@@ -557,7 +525,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">fontend</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">FontEnd</a>
         		</li>
       		
 		</ul>
@@ -569,7 +537,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="/categories/font-end//" class="article-tag-list-link color4">Font-end</a>
+        			<a href="/categories/Font-end//" class="article-tag-list-link color4">Font-end</a>
         		</li>
       		
 		</ul>
@@ -705,7 +673,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="/categories/font-end//" class="article-tag-list-link color4">Font-end</a>
+        			<a href="/categories/Font-end//" class="article-tag-list-link color4">Font-end</a>
         		</li>
       		
 		</ul>
@@ -823,7 +791,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">program</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Program</a>
         		</li>
       		
 		</ul>
@@ -835,7 +803,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="/categories/others//" class="article-tag-list-link color2">Others</a>
+        			<a href="/categories/Others//" class="article-tag-list-link color2">Others</a>
         		</li>
       		
 		</ul>
@@ -960,15 +928,15 @@
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">program</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">fontend</a>
+                <a href="javascript:void(0)" class="js-tag color3">Program</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">FontEnd</a>
               </li>
             
             <div class="clearfix"></div>

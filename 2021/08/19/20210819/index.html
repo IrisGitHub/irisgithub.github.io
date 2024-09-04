@@ -6,16 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://irisgithub.github.io">
-  <title>Archives: 2022/8 | Iris&#39; Blog</title>
+  <title>Webpack 记录 | Iris&#39; Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="前端 JS WPF">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Iris&#39; Blog">
-<meta property="og:url" content="https://irisgithub.github.io/archives/2022/08/index.html">
+  <meta name="description" content="Webpack 配置项记录，以后新建工程很快 entry entry 是描述一个 bundle 的入口文件是什么。在具体在业务中使用的方式有如下三种：  直接在 package.json 中描述 entry 内容； 动态创建 entry 内容，使用 glob 等工具使用若干通配符，运行时获得 entry 的条目，这种方式比较适合入口文件不集中且较多的场景； 根据 entry 内容挂钩一些 html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Webpack 记录">
+<meta property="og:url" content="https://irisgithub.github.io/2021/08/19/20210819/index.html">
 <meta property="og:site_name" content="Iris&#39; Blog">
-<meta property="og:description" content="前端 JS WPF">
+<meta property="og:description" content="Webpack 配置项记录，以后新建工程很快 entry entry 是描述一个 bundle 的入口文件是什么。在具体在业务中使用的方式有如下三种：  直接在 package.json 中描述 entry 内容； 动态创建 entry 内容，使用 glob 等工具使用若干通配符，运行时获得 entry 的条目，这种方式比较适合入口文件不集中且较多的场景； 根据 entry 内容挂钩一些 html">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-08-19T08:56:15.000Z">
+<meta property="article:modified_time" content="2024-09-04T03:29:04.405Z">
 <meta property="article:author" content="Iris">
+<meta property="article:tag" content="FontEnd">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="Iris&#39; Blog" type="application/atom+xml">
@@ -158,71 +161,277 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-20210819" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2022" class="archive-year">2022</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/08/10/20220810/" class="archive-article-date">
-  	<time datetime="2022-08-10T07:56:15.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-08-10</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/08/10/20220810/">Webpack 配置项</a>
+    <h1 class="article-title" itemprop="name">
+      Webpack 记录
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/2021/08/19/20210819/" class="archive-article-date">
+  	<time datetime="2021-08-19T08:56:15.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-19</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Webpack 配置项记录，以后新建工程很快</p>
+<p>entry</p>
+<p>entry 是描述一个 bundle 的入口文件是什么。在具体在业务中使用的方式有如下三种：</p>
+<ul>
+<li>直接在 package.json 中描述 entry 内容；</li>
+<li>动态创建 entry 内容，使用 glob 等工具使用若干通配符，运行时获得 entry 的条目，这种方式比较适合入口文件不集中且较多的场景；</li>
+<li>根据 entry 内容挂钩一些 html 模板 loader，例如 html-webpack-plugin，ejs-html-loader 等，这种方式主要用以解决 html 随模板生成，但同时根据 entry 的一些内容自动替换模板中一些关键字。<br>output</li>
+</ul>
+<p>output 的作用在于告知 webpack 该如何把构建编译后的文件放入到磁盘。<br>在具体业务中使用的方式有如下种：</p>
+<ul>
+<li><p>output.filename: 修改构建后文件的命名，业务中会存在 4 种情况。</p>
+<ul>
+<li>直接设置一个 bundle 的 name，例如 index.bundle.js 这类场景发生在只有一个 entry 的情况；</li>
+<li>[name]，使用 Chunk 的名称</li>
+<li>[hash]，使用 Compilation 的 hash 值，在这种方式下生成的资源文件会都有相同的 hash 值</li>
+<li>[chunkhash]，使用 Chunk 的 hash 值，在这种方式下会根据每个 Chunk 的来生成 hash 值，使用这种方式的情况发生在想要 cache，cache 会衍生出很多的内容这个在之后再做展开。</li>
+</ul>
+</li>
+<li><p>output.path: 修建构建后文件输出到磁盘的目录，业务中会存在 1 种情况。</p>
+</li>
+<li><p>传入一个相对于当前 cwd 的路径，这种自定义情况非常普遍</p>
+</li>
+<li><p>output.publicPath: 申明构建后的资源文件的引入地址，业务中会存在 1 种情况</p>
+<ul>
+<li>设置为 <a target="_blank" rel="noopener" href="https://xxxx.xx.com/assets/">https://xxxx.xx.com/assets/</a> 这种方式，这种方式的出现在于 webpack 默认在引用资源时都是从根目录开始，然后现实中 assets 资源 和 html 会随不同的发布平台发布。</li>
+</ul>
+</li>
+<li><p>output.chunkFilename：声明非 entry chunks 的资源文件的命名，一般它发生的场景在 code split 即按需加载的业务场景，例如 require.ensure，在这种场景下，会对 require.ensure 的模块进行独立的打包，文件命名也会有四种情况。</p>
+<ul>
+<li>[id]，id 值 从 0 开始</li>
+<li>[name]，该 chunk 的 name，require.ensure(dependencies: String[], callback: function(require), errorCallback: function(error), chunkName: String)</li>
+<li>[hash]，使用 Compilation 的 hash 值，在这种方式下生成的资源文件会都有相同的 hash 值</li>
+<li>[chunkhash]，使用 Chunk 的 hash 值，在这种方式下会根据每个 Chunk 的来生成 hash 值，使用这种方式的情况发生在想要 cache，cache 会衍生出很多的内容这个在之后再做展开。</li>
+</ul>
+</li>
+<li><p>output.library：一旦设置后该 bundle 将被处理为 library。</p>
+</li>
+<li><p>output.libraryTarget：export 的 library 的规范，有支持 var, this, commonjs,commonjs2,amd,umd。<br>resolve</p>
+</li>
+<li><p>resolve.alias：为模块设置别名。这种方案通常使用在两种情况下：</p>
+<ul>
+<li>一种是单纯为模块设置别名，一来方便自己不再需要根据目录书写 ..&#x2F; 等这种路径操作，另外也可以提升 webpack 在 resolve 模块时的速度；</li>
+<li>另外一种则和优化上扯上一些关系，比如 resolve.alias.a &#x3D; isTest ? ‘moduleTestA’ : ‘moduleA’，如上这种方式使用最大的好处在于能根据当前所属代码所需情况构建产物中只会有 moduleTestA 或者 moduleA。以上这种方式可以在所有资源文件应用。当然也可以使用 babel-plugin-module-resolver 和 less-plugin-rewrite-import 予以解决。</li>
+</ul>
+</li>
+<li><p>resolve.root：添加个人目录到 webpack 查找模块的路径里，这种需求比如发生在当前某个项目所依赖某个文件并不在该项目中。</p>
+</li>
+<li><p>resolve.modulesDirectories：模块解析方式，在项目中我看到一般会有两种使用的场景，<br>_ 一种主要针对开发者，需要新增一种模块的解析方式。比如设置为 [“node_modules”, “bower_components”] 那么在项目中 foo&#x2F;bar 的文件下依赖一个模块 a, 那么 webpack 会通过如下的顺序去寻找依赖<br>foo&#x2F;bar&#x2F;node_modules&#x2F;a<br>foo&#x2F;bar&#x2F;bower_components&#x2F;a<br>foo&#x2F;node_modules&#x2F;a<br>foo&#x2F;bower_components&#x2F;a<br>node_modules&#x2F;a<br>bower_components&#x2F;a<br>_ 另外一种则是想要申明模块 resolve 的优先级，比如在一个项目中有依赖 A，B，依赖的 A,B 同时依赖了 C，如果在构建过程中，你想明确表示我只想要某个 C 的话，则就可以通过这种方式。</p>
+</li>
+<li><p>resolve.extensions：设置解析模块的拓展名。默认为 [“”, “.webpack.js”, “.web.js”, “.js”]。比如新增一种文件扩展名，[“”, “.webpack.js”, “.web.js”, “.web.ts”, “.web.tsx”, “.js”]</p>
+</li>
+<li><p>resolve.packageMains：设置 main 的入口文件。这种方式目前会在 webpack@2 中使用 resolve.mainFields 来解决 tree-shaking，目前支持的有 redux 等。<br>resolveLoader</p>
+</li>
+<li><p>resolveLoader.modulesDirectories：同 resolve.modulesDirectories 只不过针对 loader，这边需要注意的是在 resolve.modulesDirectories 中关于优先级的，在工具被二次封装时会用到比较多。</p>
+</li>
+<li><p>resolveLoader.moduleTemplates： [“<em>-webpack-loader”, “</em>-web-loader”, “<em>-loader”, “</em>“]webpack@1 中内置的模板，但是在 webpack@2 是并不会补齐。<br>resolve.root, resolve.fallback, resolve.modulesDirectories 这三个属性在 webpack@2 中被合并到了 resolve.modules<br>module</p>
+</li>
+<li><p>module.loaders：对应模块的加载器。在 webpack@2 中使用 module.rules 予以取代。以下会罗列目前常用文件类型的模块加载处理方式。</p>
+<ul>
+<li>babel-loader 处理 .js 和 .jsx 文件，由于历史原因 atool-build 在处理 .jsx 文件时会处理 node_modules 下内容。<ul>
+<li>目前 atool-build 已经内置的 preset 有 babel-preset-es2015-ie，babel-preset-react，babel-preset-stage-0，plugins 有 babel-plugin-add-module-exports 和 babel-plugin-transform-decorators-legacy。</li>
+<li>目前业务中自行使用的有: plugins: babel-plugin-import 构建资源大小提供优化，babel-plugin-transform-runtime 实现按需加载 pollyfill 需要与 babel-runtime 结合使用，babel-plugin-module-resolver 实现诸如 webpack 中 resolve.alias 功能，babel-plugin-dva-hmr 和 babel-plugin-dev-expression 实现 dva hot module replacement 功能，babel-plugin-react-intl 实现 react 多语言方案， babel-plugin-es6-promise 覆盖原有 promise; preset: babel-preset-env 实现根据浏览器支持情况自动打包 pollyfill 等功能，babel-preset-es2016 等。<strong>在实际过程中，都可能需要对 preset 传入参数的需求。</strong>一般设置如下<ul>
+<li>presets: [[require.resolve(‘xxx-preset’), { options: hi }]]</li>
+</ul>
+</li>
+<li>cacheDirectory：缓存支持，一般默认就开启</li>
+<li>babelrc：一般需要禁用掉，防止用户端的 babel 配置影响内置配置</li>
+</ul>
+</li>
+<li>tsx-loader: 处理 ts 文件，内置参数 target: ‘es6’, jsx: ‘preserve’,moduleResolution: ‘node’, declaration: false, sourceMap: true，需要注意的是在使用 ts 项目时必须要人为引入一个 ts config.json 的文件，如果没有内容，内部设置为一个空对象即可。</li>
+<li>style-loader: 通过 js 方式 inject style 节点来注入样式，一般用于开发环境</li>
+<li>css-loader: 处理 css 文件，一般现有项目中都会使用 ExtractTextPlugin 把样式文件抽取出来，但是在本地开发环境下一般不会 extract 出来，因为一旦 extract 出来会导致 hmr 对样式失效。所以一般在开环环境下会 style-loader!css-loader!postcss-loader 而在 production 下采用 ExtractTextPlugin，另外在每个 loader 都有对应的参数，postcss 还有专门的插件集。除此之外，常用的 css-loader 参数有 modules autoprefix indentName 等</li>
+<li>postcss-loader: 目前在 postcss 中内置的 plugin 有 rucksack-css - 可废弃 和 autoprefixer 用以实现 autoprefix。一般针对适配的不同的浏览器，需要对 autoprefixer 配置 browsers 参数。一般在无线业务中为了适配高清方案也会引入 postcss-plugin-pxtorem, 同时也需要设置一些参数。</li>
+<li>less-loader: 处理 less 文件，一般情况下需要配置 modifyVars 参数，用以覆盖 less 变量值</li>
+<li>sass-loader: 处理 sass 文件，也有使用 fast-sass-loader 和 @ali&#x2F;sass-loader</li>
+<li>file-loader: 处理 html 文件，当前 atool-build 内置的方式，在实际业务中，很多并不希望 html 是拍平的结构，所以他们会自定义 fileloader 的参数，比如 file?name&#x3D;[path][name].[ext]&amp;context&#x3D;.&#x2F;src&#x2F;pages，但是也有不少业务中对 html 处理引入了新的 loader, 有 ejs-html-loader，html-minify-loader，还有直接使用插件 HtmlWebpackPlugin 来处理的情况，经过研究，根本上其实是想要解决 html 的自动化生成，以及内部资源文件的引用可以自动化生成。</li>
+<li>url-loader: 处理 woff woff2 ttf eot svg png jpg jpeg gif 文件，目前业务中会有变更的点有，需要设置 limit 的大小，以及 svg 的处理可能需要存在多个 loader 处理，因为在使用 antd-mobile 业务中需要新增一个 svg-sprite-loader 来把 svg 文件当成一个 component</li>
+<li>svg-sprite-loader, 已在 url-loader 中予以说明</li>
+<li>HtmlWebpackPlugin, 已在 file-loader 中予以说明</li>
+<li>ejs-html-loader, 已在 file-loader 中予以说明</li>
+<li>html-minify-loader, 已在 file-loader 中予以说明</li>
+<li>handlebars-loader, 处理 .handlebars 文件，并未内置，业务中自行引入</li>
+<li>aptl-loader, 处理 .atpl 文件</li>
+<li>raw-loader, 处理 tpl 文件，也有使用 html-loader 来处理的</li>
+<li>scss-loader, 处理 scss 文件</li>
+<li>vue-loader, 处理 vue 文件</li>
+<li>json-loader, 处理 json 文件</li>
+</ul>
+</li>
+</ul>
+<p>注：一个正常 loader 的配置可能需要配置 test,exclude,include,loader,loaders 属性</p>
+<ul>
+<li>module.preLoaders：istanbul-instrumenter，此方式在 webpack@2 中被弃用，可以直接在对应的应用规则的文件中启用 enforce: ‘pre’</li>
+<li>module.postLoaders：es3ify-loader，提升 ie 兼容性，此方式在 webpack@2 中被弃用，可以直接在对应的应用规则的文件中启用 enforce: ‘post’</li>
+<li>module.noParse: 指明 webpack 不去解析某些内容，该方式有助于提升 webpack 的构建性能，配置内容可以是<br>externals</li>
+</ul>
+<p>目前业务中使用都为声明外部依赖，这种方式有益于加速 webpack 构建，但是需要开发者额外引入被 external 库的 cdn 地址，常见的有 React 和 ReactDom。<br>devtool</p>
+<p>文档<br>node</p>
+<p>目前内置如下内容为 empty<br>[<br>‘child_process’,<br>‘cluster’,<br>‘dgram’,<br>‘dns’,<br>‘fs’,<br>‘module’,<br>‘net’,<br>‘readline’,<br>‘repl’,<br>‘tls’,<br>];<br>plugin - webpack 内置</p>
+<p>大部分插件都有需要参数传入</p>
+<ul>
+<li>webpack.optimize.CommonsChunkPlugin，在业务中通常有两种使用方式，一种是直接从所有的代码中抽取 common 的逻辑，此处可以配置 common 抽取最小单元，还有一种 common 的使用方式是 vendor 即用户配置具体的 entry 条目，并把该条目抽取为 vendor。</li>
+<li>webpack.optimize.OccurenceOrderPlugin：优化插件，优化 module id</li>
+<li>webpack.optimize.UglifyJsPlugin：代码丑化</li>
+<li>webpack.optimize.DedupePlugin：打包时删除重复模块代码</li>
+<li>webpack.DefinePlugin：给代码注入全局标识符</li>
+<li>webpack.BannerPlugin：给代码添加 banner 信息</li>
+<li>webpack.ProvidePlugin：调用模块的别名</li>
+<li>webpack.NoErrorsPlugin：报错但不退出 webpack 进程</li>
+<li>webpack.ProgressPlugin：显示构建进度</li>
+<li>DllPlugin：主要业务中应用于提升本地调试速度，配置需要有单独的 Dll 配置文件</li>
+<li>DllReferencePlugin：主要业务中应用于提升本地调试速度，需要配合 DllPlugin 使用<br>plugin - webpack 扩展</li>
+</ul>
+<p>大部分插件都有需要参数传入</p>
+<ul>
+<li><p>webpack-visualizer-plugin：查看构建 bundle 的构成</p>
+</li>
+<li><p>html-webpack-plugin：生成 html 文件</p>
+</li>
+<li><p>copy-webpack-plugin：拷贝文件或者文件夹</p>
+</li>
+<li><p>clean-webpack-plugin：清理文件或者文件夹</p>
+</li>
+<li><p>i18n-webpack-plugin：国际化支持</p>
+</li>
+<li><p>webpack-shell-plugin：给 shell 提供运行时机</p>
+</li>
+<li><p>case-sensitive-paths-webpack-plugin： 路径大小写敏感问题</p>
+</li>
+<li><p>friendly-errors-webpack-plugin：友好报错信息</p>
+</li>
+<li><p>extract-text-webpack-plugin：将文本内容生成抽取成独立文件</p>
+</li>
+<li><p>happypack：加速构建，需要对配置做比较大改动</p>
+</li>
+<li><p>parallel-webpack： 提供资源文件的并发构建</p>
+</li>
+<li><p>map-json-webpack-plugin：使用 hash 时，生成资源映射文件<br>需要沉淀的方案</p>
+</li>
+<li><p>html 自动化生成，自动更新引用资源</p>
+</li>
+<li><p>更加优质的 common 生成逻辑</p>
+</li>
+<li><p>目前有持久化缓存需求，需要给出一个更加完善的方案，即更加合理化的 hash 方案</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://github.com/goldhand/sw-precache-webpack-plugin">https://github.com/goldhand/sw-precache-webpack-plugin</a> 通过 sw 来完成资源文件离线化</p>
+</li>
+<li><p>单一文件多种 loader 处理，单一文件多种 loader 如何进行区间调整</p>
+</li>
+</ul>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">fontend</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">FontEnd</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 	<div class="article-category tagcloud">
 		<i class="icon-book icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="/categories/font-end//" class="article-tag-list-link color4">Font-end</a>
+        			<a href="/categories/Font-end//" class="article-tag-list-link color4">Font-end</a>
         		</li>
       		
 		</ul>
 	</div>
 
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
   
   
-    </div></section>
+    <a href="/2021/08/10/20210810/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Webpack 配置项</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+  
+  
   
 
-    
+  
+
+  
+
+  
+    <div id="gitalk-container" style="padding: 0px 30px 0px 30px;"></div> 
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<script type="text/javascript">
+
+if(true){
+	var gitalk = new Gitalk({
+        clientID: '73057998ad4e07c5cfef',
+        clientSecret: '4cac9705db95642fe21d40f54c17e5408b9e44ca',
+        repo: 'irisgithub.github.io',
+        owner: 'IrisGitHub',
+        admin: ['IrisGitHub'],
+        id: 'Thu Aug 19 2021 16:56:15 GMT+0800',
+        distractionFreeMode: 'true'
+})
+gitalk.render('gitalk-container') 
+}
+</script>
+  
+
+  
 
 
           </div>
@@ -245,8 +454,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
@@ -304,15 +513,15 @@
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">program</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">fontend</a>
+                <a href="javascript:void(0)" class="js-tag color3">Program</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">FontEnd</a>
               </li>
             
             <div class="clearfix"></div>
